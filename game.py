@@ -18,6 +18,28 @@ GRAY = (100, 100, 100)
 ORANGE = (250, 141, 7)
 LIGHTGREEN = (25, 184, 22)
 
+
+#Game Object class that draws a rectangle
+class GameObject(pygame.sprite.Sprite):
+    """
+    This class extends pygame.sprite.Sprite.
+    Defines four parameters: x, y, width, and height.
+    It stores three attributes: self.surf, self.x, and self.y.
+    """
+    def __init__(self, x, y, width, height, color):
+        super(GameObject, self).__init__()
+        self.surf = pygame.Surface((width, height))
+        self.surf.fill ((color))
+        self.rect = self.surf.get_rect()
+        self.x = x
+        self.y = y
+
+    def render (self, screen):
+        """
+        This method is responsible for drawing the GameObject's surface to the screen.
+        """
+        screen.blit(self.surf, (self.x, self.y))
+
 # game loop
 running = True
 while running:
@@ -26,18 +48,13 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # clear the screen
-    screen.fill((WHITE))
-    #draw a circle
-    position1 = (250, 250) # x, y position
-    pygame.draw.circle(screen, YELLOW, position1, 50) #75 is the radius
-    position2 =  (50,50)
-    pygame.draw.circle(screen, RED, position2, 50) #75 is the radius
-    position3 =  (450,50)
-    pygame.draw.circle(screen, ORANGE, position3, 50) #75 is the radius
-    position4 =  (50, 450)
-    pygame.draw.circle(screen, LIGHTGREEN, position4, 50) #75 is the radius
-    position5 =  (450, 450)
-    pygame.draw.circle(screen, CYAN, position5, 50) #75 is the radius
+    # Make an instance of GameObject
+    box = GameObject(120, 300, 50, 50, FUSCHIA)
+    box2 = GameObject(90, 40, 50, 50, BLUE )
+    screen.fill (WHITE)
+    box.render(screen)
+    box2.render(screen)
     #update display
     pygame.display.flip()
+
+
