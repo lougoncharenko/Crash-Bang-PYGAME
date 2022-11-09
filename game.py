@@ -1,5 +1,5 @@
 # Import and initialize pygame
-import pygame 
+import pygame
 pygame.init()
 
 #configure the screen
@@ -23,12 +23,14 @@ LIGHTGREEN = (25, 184, 22)
 class GameObject(pygame.sprite.Sprite):
     """
     This class extends pygame.sprite.Sprite.
-    Defines four parameters: x, y, width, and height.
+    Defines 3 parameters: x, y, and image
     It stores three attributes: self.surf, self.x, and self.y.
     """
     def __init__(self, x_position, y_position, image):
         super(GameObject, self).__init__()
-        self.surf = pygame.image.load(image) # ADD!
+        load_image= pygame.image.load(image) 
+        self.surf = pygame.transform.scale(load_image, (50,50)) #controls images height
+        self.dimension = pygame.Surface((50, 50))
         self.x_position = x_position
         self.y_position = y_position
 
@@ -48,12 +50,14 @@ while running:
 
     # Make an instance of GameObject
     apple = GameObject(200, 300, 'images/apple.png')
-    strawberry= GameObject(400, 70, 'images/strawberry.png')
+    strawberry= GameObject(100, 70, 'images/strawberry.png')
     mushroom = GameObject(300, 150,'images/mushroom.jpeg')
+    mario = GameObject(150, 30, 'images/mario.jpeg' )
     screen.fill (WHITE)
     apple.render(screen)
     strawberry.render(screen)
     mushroom.render(screen)
+    mario.render(screen)
     
     
     #update display
