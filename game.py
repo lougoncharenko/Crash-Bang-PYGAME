@@ -1,6 +1,8 @@
 # Import and initialize pygame
 import pygame
 pygame.init()
+from random import randint
+clock = pygame.time.Clock()
 
 #configure the screen
 screen = pygame.display.set_mode([500,500])
@@ -19,7 +21,6 @@ ORANGE = (250, 141, 7)
 LIGHTGREEN = (25, 184, 22)
 
 
-#Game Object class that draws a rectangle
 class GameObject(pygame.sprite.Sprite):
     """
     This class extends pygame.sprite.Sprite.
@@ -28,11 +29,16 @@ class GameObject(pygame.sprite.Sprite):
     """
     def __init__(self, x_position, y_position, image):
         super(GameObject, self).__init__()
-        load_image= pygame.image.load(image) 
-        self.surf = pygame.transform.scale(load_image, (50,50)) #controls images height
+        self.surf= pygame.image.load(image) 
+        # self.surf = pygame.transform.scale(load_image, (50,50)) #controls images height
         self.dimension = pygame.Surface((50, 50))
         self.x_position = x_position
         self.y_position = y_position
+    
+    def move(self):
+        self.x_position += 1
+        self.y_position += 1
+
 
     def render (self, screen):
         """
@@ -40,27 +46,37 @@ class GameObject(pygame.sprite.Sprite):
         """
         screen.blit(self.surf, (self.x_position, self.y_position))
 
-# game loop
-running = True
-while running:
+# class Apple(GameObject):
+#     def __init__(self):
+#         x = 0
+#         super(Apple, self).__init__(x, 0, 'images/apple.png')
+#         self.dx = 1
+#         self.dy = (randint(0, 200) / 100) + 1
+#         self.reset()
+
+#     def move(self):
+#         self.y += self.dy
+#         if self.y > 500: 
+#             self.reset()
+
+#  # add a new method
+#     def reset(self):
+#         self.x = randint(50, 400)
+#         self.y = -64
+
+
+
+
+
+#game loop
+GAME_RUNNING = True
+while GAME_RUNNING:
     #look at events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-
-    # Make an instance of GameObject
-    apple = GameObject(200, 300, 'images/apple.png')
-    strawberry= GameObject(100, 70, 'images/strawberry.png')
-    mushroom = GameObject(300, 150,'images/mushroom.jpeg')
-    mario = GameObject(150, 30, 'images/mario.jpeg' )
+            GAME_RUNNING = False
     screen.fill (WHITE)
+    apple = GameObject(0, 250, 'images/apple.png')
+    apple.move()
     apple.render(screen)
-    strawberry.render(screen)
-    mushroom.render(screen)
-    mario.render(screen)
-    
-    
-    #update display
     pygame.display.flip()
-
-
