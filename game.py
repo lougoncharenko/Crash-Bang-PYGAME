@@ -29,15 +29,23 @@ class GameObject(pygame.sprite.Sprite):
     """
     def __init__(self, x_position, y_position, image):
         super(GameObject, self).__init__()
-        self.surf= pygame.image.load(image) 
-        # self.surf = pygame.transform.scale(load_image, (50,50)) #controls images height
+        load_image= pygame.image.load(image) 
+        self.surf = pygame.transform.scale(load_image, (50,50)) #controls images height
         self.dimension = pygame.Surface((50, 50))
         self.x_position = x_position
         self.y_position = y_position
+        self.reset()
     
     def move(self):
         self.x_position += 1
         self.y_position += 1
+        if self.y_position > 500: 
+            self.reset()
+
+    def reset(self): 
+        self.x_position = randint(50, 400)
+        self.y_position = -64
+
 
 
     def render (self, screen):
@@ -45,6 +53,10 @@ class GameObject(pygame.sprite.Sprite):
         This method is responsible for drawing the GameObject's surface to the screen.
         """
         screen.blit(self.surf, (self.x_position, self.y_position))
+
+apple = GameObject(0, 250, 'images/apple.png')
+mario = GameObject(50, 300, 'images/mario.jpeg')
+mushroom = GameObject(300, 500, 'images/mushroom.jpeg')
 
 #game loop
 GAME_RUNNING = True
@@ -54,7 +66,10 @@ while GAME_RUNNING:
         if event.type == pygame.QUIT:
             GAME_RUNNING = False
     screen.fill (WHITE)
-    apple = GameObject(0, 250, 'images/apple.png')
+    mushroom.render(screen)
     apple.move()
     apple.render(screen)
+    mario.move()
+    mario.render(screen)
     pygame.display.flip()
+    clock.tick(60)
