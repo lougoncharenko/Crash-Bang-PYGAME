@@ -46,28 +46,6 @@ class GameObject(pygame.sprite.Sprite):
         """
         screen.blit(self.surf, (self.x_position, self.y_position))
 
-# class Apple(GameObject):
-#     def __init__(self):
-#         x = 0
-#         super(Apple, self).__init__(x, 0, 'images/apple.png')
-#         self.dx = 1
-#         self.dy = (randint(0, 200) / 100) + 1
-#         self.reset()
-
-#     def move(self):
-#         self.y += self.dy
-#         if self.y > 500: 
-#             self.reset()
-
-#  # add a new method
-#     def reset(self):
-#         self.x = randint(50, 400)
-#         self.y = -64
-
-
-
-
-
 #game loop
 GAME_RUNNING = True
 while GAME_RUNNING:
